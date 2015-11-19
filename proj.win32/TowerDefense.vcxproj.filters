@@ -10,6 +10,18 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scenes">
+      <UniqueIdentifier>{7d35fffe-96b0-4211-ae25-110cbb6602a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scenes\MenuScene">
+      <UniqueIdentifier>{c5ea9215-e6ee-423c-a464-ce01160754d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scenes\StartScene">
+      <UniqueIdentifier>{243bad02-c30b-4708-95ba-9f95fd122aee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scenes\GameScene">
+      <UniqueIdentifier>{58f9463e-84c3-4d5d-8de0-34f76d96e3a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -18,8 +30,17 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>src\Scenes\MenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StartScene.cpp">
+      <Filter>src\Scenes\StartScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SceneFactory.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>src\Scenes\GameScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -29,8 +50,17 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>src\Scenes\MenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StartScene.h">
+      <Filter>src\Scenes\StartScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SceneFactory.h">
+      <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>src\Scenes\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
