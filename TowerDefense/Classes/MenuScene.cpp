@@ -37,22 +37,34 @@ bool MenuScene::init()
         return false;
     }
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+//    Size visibleSize = Director::getInstance()->getVisibleSize();
+//    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     auto rootNode = CSLoader::createNode("MenuScene.csb");
     addChild(rootNode);
     
-    return true;
-}
-
-
-void MenuScene::menuCloseCallback(Ref* pSender)
-{
-    Director::getInstance()->end();
+    auto button = rootNode->getChildByName<cocos2d::ui::Button*>("StartButton");
+    button->addTouchEventListener([](Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
+    {
+        
+    });
     
+    button = rootNode->getChildByName<cocos2d::ui::Button*>("OptionButton");
+    button->addTouchEventListener([](Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
+    {
+        
+    });
+    
+    button = rootNode->getChildByName<cocos2d::ui::Button*>("ExitButton");
+    button->addTouchEventListener([](Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
+    {
+        Director::getInstance()->end();
+        
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
+        exit(0);
 #endif
+    });
+    
+    return true;
 }
 
