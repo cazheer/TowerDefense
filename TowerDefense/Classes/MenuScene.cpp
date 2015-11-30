@@ -9,6 +9,7 @@
 #include "MenuScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -18,7 +19,7 @@ Scene* MenuScene::createScene()
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = MenuScene::create();
+    auto layer = create();
     
     // add layer as a child to scene
     scene->addChild(layer);
@@ -40,16 +41,17 @@ bool MenuScene::init()
 //    Size visibleSize = Director::getInstance()->getVisibleSize();
 //    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    auto rootNode = CSLoader::createNode("MenuScene.csb");
+    auto rootNode = CSLoader::createNode("Menu/MenuScene.csb");
     addChild(rootNode);
     
     auto button = rootNode->getChildByName<cocos2d::ui::Button*>("StartButton");
     button->addTouchEventListener([](Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
     {
-        
+        auto scene = GameScene::createScene();
+        Director::getInstance()->pushScene(scene);
     });
     
-    button = rootNode->getChildByName<cocos2d::ui::Button*>("OptionButton");
+    button = rootNode->getChildByName<cocos2d::ui::Button*>("SettingsButton");
     button->addTouchEventListener([](Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
     {
         

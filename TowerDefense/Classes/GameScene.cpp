@@ -8,7 +8,6 @@
 
 #include "GameScene.h"
 #include "cocostudio/CocoStudio.h"
-#include "ui/CocosGUI.h"
 
 USING_NS_CC;
 
@@ -34,11 +33,6 @@ GameScene* GameScene::getInstance()
     return _inst;
 }
 
-GameScene::GameScene() :
-_pause(false), cocos2d::Layer()
-{
-}
-
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
@@ -54,34 +48,36 @@ bool GameScene::init()
     //    Size visibleSize = Director::getInstance()->getVisibleSize();
     //    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    this->_gameScene = CSLoader::createNode("GameScene.csb");
+    this->_gameScene = CSLoader::createNode("Game/GameScene.csb");
     addChild(this->_gameScene);
-    this->_pauseScene = CSLoader::createNode("PauseScene.csb");
+    this->_pauseScene = CSLoader::createNode("Game/Pause/PauseScene.csb");
     addChild(this->_pauseScene);
-    
-    auto button = this->_pauseScene->getChildByName<cocos2d::ui::Button*>("ResumeButton");
+
+    /*
+    ** Game
+    */
+    auto button = this->_pauseScene->getChildByName<cocos2d::ui::Button*>("PauseButton");
+    button->addTouchEventListener(CC_CALLBACK_2(GameScene::gamePause, this));
+
+    /*
+    ** Pause
+    */
+    button = this->_pauseScene->getChildByName<cocos2d::ui::Button*>("ResumeButton");
+    button->addTouchEventListener(CC_CALLBACK_2(GameScene::gameResume, this));
+
+    button = this->_pauseScene->getChildByName<cocos2d::ui::Button*>("RetryButton");
     button->addTouchEventListener([](Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
-                                  {
-                                      if (GameScene::getInstance())
-                                          GameScene::getInstance()->resume();
-                                  });
+    {
+
+    });
     
     button = this->_pauseScene->getChildByName<cocos2d::ui::Button*>("MenuButton");
     button->addTouchEventListener([](Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
-                                  {
-                                      
-                                  });
+    {
+        Director::getInstance()->popScene();
+    });
     
-    button = this->_pauseScene->getChildByName<cocos2d::ui::Button*>("ExitButton");
-    button->addTouchEventListener([](Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
-                                  {
-                                      Director::getInstance()->end();
-                                      
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-                                      exit(0);
-#endif
-                                  });
-    
+    this->gameResume(nullptr, cocos2d::ui::Widget::TouchEventType::BEGAN);
     this->scheduleUpdate();
     
     return true;
@@ -95,13 +91,13 @@ void GameScene::update(float dt)
     
 }
 
-void GameScene::pause()
+void GameScene::gamePause(Ref *pSender, ui::Widget::TouchEventType type)
 {
     this->_pause = true;
     this->_pauseScene->setVisible(true);
 }
 
-void GameScene::resume()
+void GameScene::gameResume(Ref *pSender, ui::Widget::TouchEventType type)
 {
     this->_pause = false;
     this->_pauseScene->setVisible(false);

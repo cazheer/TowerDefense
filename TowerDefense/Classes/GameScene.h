@@ -10,10 +10,10 @@
 #define __TowerDefense__GameScene__
 
 #include "cocos2d.h"
+#include "ui/CocosGUI.h"
 
 class GameScene : public cocos2d::Layer
 {
-    GameScene();
     static GameScene* _inst;
     
     bool _pause;
@@ -25,11 +25,11 @@ public:
     static cocos2d::Scene* createScene();
     static GameScene* getInstance();
     
-    virtual bool init();
-    virtual void update(float dt);
+    virtual bool init() override;
+    virtual void update(float dt) override;
     
-    void pause();
-    void resume();
+    void gamePause(Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+    void gameResume(Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
     
     // implement the "static create()" method manually
     CREATE_FUNC(GameScene);
