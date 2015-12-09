@@ -60,6 +60,9 @@
     <ClCompile Include="..\Classes\MarkProducerAlly.cpp">
       <Filter>src\AllyUnit\Units</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\NormalEnemy.cpp">
+      <Filter>src\EnemyUnit\Units</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -97,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MarkProducerAlly.h">
       <Filter>src\AllyUnit\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NormalEnemy.h">
+      <Filter>src\EnemyUnit\Units</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

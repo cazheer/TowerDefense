@@ -152,6 +152,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\MarkProducerAlly.cpp" />
     <ClCompile Include="..\Classes\MenuScene.cpp" />
+    <ClCompile Include="..\Classes\NormalEnemy.cpp" />
     <ClCompile Include="..\Classes\OptionScene.cpp" />
     <ClCompile Include="..\Classes\SlowEnemy.cpp" />
     <ClCompile Include="..\Classes\WorldPosition.cpp" />
@@ -166,6 +167,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\MarkProducerAlly.h" />
     <ClInclude Include="..\Classes\MenuScene.h" />
+    <ClInclude Include="..\Classes\NormalEnemy.h" />
     <ClInclude Include="..\Classes\OptionScene.h" />
     <ClInclude Include="..\Classes\SlowEnemy.h" />
     <ClInclude Include="..\Classes\WorldPosition.h" />
