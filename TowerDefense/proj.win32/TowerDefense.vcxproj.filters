@@ -10,18 +10,51 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\AllyUnit">
+      <UniqueIdentifier>{8a0e107a-036c-4885-b3fc-f5cfc7fac190}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AllyUnit\Units">
+      <UniqueIdentifier>{eb4034e8-b116-4beb-b1cc-1935e1328d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EnemyUnit">
+      <UniqueIdentifier>{c24f561d-bf8a-4e5d-828f-f17563985770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EnemyUnit\Units">
+      <UniqueIdentifier>{3b2b1a7d-047e-4121-9ce6-e831a313b403}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GameScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\OptionScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AllyManager.cpp">
+      <Filter>src\AllyUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AllyUnit.cpp">
+      <Filter>src\AllyUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyManager .cpp">
+      <Filter>src\EnemyUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyUnit.cpp">
+      <Filter>src\EnemyUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SlowEnemy.cpp">
+      <Filter>src\EnemyUnit\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\WorldPosition.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,6 +69,27 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\OptionScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AllyManager.h">
+      <Filter>src\AllyUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AllyUnit.h">
+      <Filter>src\AllyUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyManager.h">
+      <Filter>src\EnemyUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyUnit.h">
+      <Filter>src\EnemyUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SlowEnemy.h">
+      <Filter>src\EnemyUnit\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\WorldPosition.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

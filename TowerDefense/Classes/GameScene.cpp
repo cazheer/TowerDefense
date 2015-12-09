@@ -2,16 +2,15 @@
 //  GameScene.cpp
 //  TowerDefense
 //
-//  Created by admin on 11/25/15.
+//  Created by admin on 12/2/15.
 //
 //
 
 #include "GameScene.h"
-#include "cocostudio/CocoStudio.h"
+#include "AllyManager.h"
+#include "EnemyManager.h"
 
 USING_NS_CC;
-
-GameScene* GameScene::_inst = nullptr;
 
 Scene* GameScene::createScene()
 {
@@ -19,18 +18,13 @@ Scene* GameScene::createScene()
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = GameScene::create();
+    auto layer = create();
     
     // add layer as a child to scene
     scene->addChild(layer);
     
     // return the scene
     return scene;
-}
-
-GameScene* GameScene::getInstance()
-{
-    return _inst;
 }
 
 // on "init" you need to initialize your instance
@@ -43,62 +37,69 @@ bool GameScene::init()
         return false;
     }
     
-    this->_inst = this;
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto origin = Director::getInstance()->getVisibleOrigin();
     
-    //    Size visibleSize = Director::getInstance()->getVisibleSize();
-    //    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    
-    this->_gameScene = CSLoader::createNode("Game/GameScene.csb");
-    addChild(this->_gameScene);
-    this->_pauseScene = CSLoader::createNode("Game/Pause/PauseScene.csb");
-    addChild(this->_pauseScene);
+    ////////////////////////////////
+    // 2. Initialize the pause menu
 
-    /*
-    ** Game
-    */
-    auto button = this->_pauseScene->getChildByName<cocos2d::ui::Button*>("PauseButton");
-    button->addTouchEventListener(CC_CALLBACK_2(GameScene::gamePause, this));
+    // resume button
+    auto resumeItem = MenuItemImage::create(
+        FILE_GAME_PAUSE_RESUMEBUTTON_NORMAL,
+        FILE_GAME_PAUSE_RESUMEBUTTON_SELECTED,
+        CC_CALLBACK_0(GameScene::resume, this));
 
-    /*
-    ** Pause
-    */
-    button = this->_pauseScene->getChildByName<cocos2d::ui::Button*>("ResumeButton");
-    button->addTouchEventListener(CC_CALLBACK_2(GameScene::gameResume, this));
+    resumeItem->setPosition(
+        Vec2(origin.x + visibleSize.width / 2 - resumeItem->getContentSize().width / 2,
+        origin.y + visibleSize.height / 2));
 
-    button = this->_pauseScene->getChildByName<cocos2d::ui::Button*>("RetryButton");
-    button->addTouchEventListener([](Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
-    {
+    // menu button
+    auto menuItem = MenuItemImage::create(
+        FILE_GAME_PAUSE_MENUBUTTON_NORMAL,
+        FILE_GAME_PAUSE_MENUBUTTON_SELECTED,
+        CC_CALLBACK_0(GameScene::menuGame, this));
 
-    });
-    
-    button = this->_pauseScene->getChildByName<cocos2d::ui::Button*>("MenuButton");
-    button->addTouchEventListener([](Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
-    {
-        Director::getInstance()->popScene();
-    });
-    
-    this->gameResume(nullptr, cocos2d::ui::Widget::TouchEventType::BEGAN);
+    resumeItem->setPosition(
+        Vec2(origin.x + visibleSize.width / 2 - menuItem->getContentSize().width / 2,
+        origin.y + visibleSize.height / 2 + resumeItem->getContentSize().height * 2));
+
+    optionMenu = Menu::create(
+        nullptr);
+    this->addChild(optionMenu, 1);
+
+    resume();
+
+    ////////////////////////////////
+    // 3. Initialize the game data
+    AllyManager::getInstance()->Initialize(this);
+    EnemyManager::getInstance()->Initialize(this);
+
     this->scheduleUpdate();
-    
     return true;
 }
 
-void GameScene::update(float dt)
+void GameScene::update(float deltaTime)
 {
-    if (this->_pause)
+    if (pause)
         return;
 
-    
+    AllyManager::getInstance()->Update(deltaTime);
+    EnemyManager::getInstance()->Update(deltaTime);
 }
 
-void GameScene::gamePause(Ref *pSender, ui::Widget::TouchEventType type)
+void GameScene::pauseGame()
 {
-    this->_pause = true;
-    this->_pauseScene->setVisible(true);
+    pause = true;
+    optionMenu->setVisible(true);
 }
 
-void GameScene::gameResume(Ref *pSender, ui::Widget::TouchEventType type)
+void GameScene::resumeGame()
 {
-    this->_pause = false;
-    this->_pauseScene->setVisible(false);
+    pause = false;
+    optionMenu->setVisible(false);
+}
+
+void GameScene::menuGame()
+{
+
 }
