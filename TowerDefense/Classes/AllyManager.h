@@ -40,7 +40,6 @@ class AllyManager
 public:
     std::map<std::pair<int, int>, AllyUnit*> units;
 
-public:
     static AllyManager* getInstance();
 
     void createUnit(int type, int positionX, int positionY);

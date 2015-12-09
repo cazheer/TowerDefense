@@ -14,28 +14,36 @@
 class EnemyUnit
 {
 public:
-    float position;
-    int line;
+    int     hp;
+    int     power;
 
-    int hp;
-    float speed;
-    bool isMoving;
+    float   position;
+    int     line;
+
+    float   speed;
+    float   attackSpeed;
+    float   timeSinceLastAttack;
+
+    bool    isMoving;
+    bool    isAttacking;
 
     cocos2d::Sprite* sprite;
     cocos2d::Layer* layer;
 
     cocos2d::Action* movementAction;
-    cocos2d::Action* rotateAction;
+    cocos2d::Action* attackAction;
 
-    EnemyUnit(int line, int hp, float speed);
+    EnemyUnit(int hp, int power, int line, float speed, float attackSpeed);
     virtual ~EnemyUnit();
 
-    virtual bool Initialize(cocos2d::Layer* layer) = 0;
-    virtual void Update(float deltaTime) = 0;
-    virtual void Destroy() = 0;
+    virtual bool Initialize(cocos2d::Layer* layer);
+    virtual cocos2d::Sprite* InitializeSprite() = 0;
+    virtual void Update(float deltaTime);
+    virtual void Destroy();
 
     void takeDamage(int damage);
     bool move(float deltaTime);
+    void attack(float deltaTime);
 };
 
 #endif

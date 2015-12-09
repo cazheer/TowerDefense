@@ -1,10 +1,9 @@
 #include "MarkProducerAlly.h"
-#include "AllyManager.h"
-#include "WorldPosition.h"
+
+USING_NS_CC;
 
 MarkProducerAlly::MarkProducerAlly(int position, int line) :
 AllyUnit(position, line, 20),
-layer(nullptr), sprite(nullptr),
 productionSpeed(1.0), currentTime(0.0)
 {
 }
@@ -13,24 +12,13 @@ MarkProducerAlly::~MarkProducerAlly()
 {
 }
 
-bool MarkProducerAlly::Initialize(cocos2d::Layer* layer)
+Sprite* MarkProducerAlly::InitializeSprite()
 {
-    this->layer = layer;
+    return Sprite::create(SPRITE_MarkProducerAlly);
+}
 
-    auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
-    auto origin = cocos2d::Director::getInstance()->getVisibleOrigin();
-
-    sprite = cocos2d::Sprite::create(SPRITE_MarkProducerAlly);
-    float x = position;
-    float y = line;
-    WorldPosition::worldToScreenPosition(x, y);
-    sprite->setPosition(x, y);
-    sprite->setScale(
-        visibleSize.width / (sprite->getContentSize().width * SCREENCASE),
-        visibleSize.height / (sprite->getContentSize().height * SCREENLINE));
-
-    layer->addChild(sprite);
-
+bool MarkProducerAlly::InitializeData()
+{
     return true;
 }
 
@@ -44,9 +32,4 @@ void MarkProducerAlly::Update(float deltaTime)
 
         currentTime -= productionSpeed;
     }
-}
-
-void MarkProducerAlly::Destroy()
-{
-    layer->removeChild(sprite);
 }

@@ -19,15 +19,25 @@ protected:
 
     int hp;
 
+    bool activate;
+
+    cocos2d::Layer* layer;
+    cocos2d::Sprite* sprite;
+
 public:
     AllyUnit(int position, int line, int hp);
     virtual ~AllyUnit();
 
-    virtual bool Initialize(cocos2d::Layer* layer) = 0;
+    bool Initialize(cocos2d::Layer* layer);
+    virtual bool InitializeData() = 0;
+    virtual cocos2d::Sprite* InitializeSprite() = 0;
     virtual void Update(float deltaTime) = 0;
-    virtual void Destroy() = 0;
+    void Destroy();
 
     void takeDamage(int damage);
+
+    void Activate(bool activate);
+    bool Activate() const;
 };
 
 #endif

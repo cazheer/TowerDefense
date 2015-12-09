@@ -15,8 +15,6 @@
 
 class MarkProducerAlly : public AllyUnit
 {
-    cocos2d::Layer* layer;
-    cocos2d::Sprite* sprite;
     float productionSpeed;
     float currentTime;
 
@@ -24,9 +22,9 @@ public:
     MarkProducerAlly(int position, int line);
     ~MarkProducerAlly();
 
-    virtual bool Initialize(cocos2d::Layer* layer);
-    virtual void Update(float deltaTime);
-    virtual void Destroy();
+    virtual bool InitializeData() override;
+    virtual cocos2d::Sprite* InitializeSprite() override;
+    virtual void Update(float deltaTime) override;
 };
 
 #endif
