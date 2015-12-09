@@ -28,6 +28,7 @@
 #define		CASE_Y 6
 class GameScene : public cocos2d::Layer
 {
+    double timeSinceBegin;
     bool pause;
     cocos2d::Menu* optionMenu;
 	struct Units {
@@ -50,6 +51,15 @@ public:
 	cocos2d::Vec2 posWordToScreen(cocos2d::Vec2 word);
 	cocos2d::Vec2 posScreenToWord(cocos2d::Vec2 screen);
     CREATE_FUNC(GameScene);
+
+private:
+    // pop enemies
+    float timeToPopMax;
+    float timer;
+
+public:
+    void randomPoper(float deltaTime);
+
 private:
 	cocos2d::Sprite *_dad[2];
 	std::vector<Units> _allies;

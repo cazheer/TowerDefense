@@ -27,7 +27,7 @@
 #define NUMBERCASE 10
 #define NUMBERLINE 5
 
-#define MAX_TYPE_ALLY 1
+#define MAX_TYPE_ALLY 2
 
 class AllyManager
 {

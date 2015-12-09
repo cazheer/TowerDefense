@@ -11,7 +11,7 @@
 
 #include "EnemyUnit.h"
 
-#define SPRITE_NormalEnemy ""
+#define SPRITE_NormalEnemy "allies/2.png"
 
 class NormalEnemy : public EnemyUnit
 {

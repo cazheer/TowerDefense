@@ -107,7 +107,8 @@ bool GameScene::init()
     AllyManager::getInstance()->Initialize(this);
     EnemyManager::getInstance()->Initialize(this);
 
-
+    timeSinceBegin = 0.0f;
+    timer = 0.0f;
 
 	//drag and drop
 	auto listener1 = EventListenerTouchOneByOne::create();
@@ -167,15 +168,7 @@ bool GameScene::init()
 
 void GameScene::createAlly(int id, cocos2d::Vec2 pos)
 {
-	GameScene::Units unit;
-	std::string str = "allies/" + std::to_string(id + 1) + ".png";
-	unit.sprite = Sprite::create(str);
-	unit.sprite->setScale(0.1f, 0.1f);
-	unit.sprite->setPosition(posWordToScreen(pos));
-	this->addChild(unit.sprite);
-	//_allies.push_back(unit);
-
-
+    AllyManager::getInstance()->createUnit(id, pos.x - 1, pos.y);
 }
 
 void GameScene::update(float deltaTime)
@@ -183,8 +176,23 @@ void GameScene::update(float deltaTime)
     if (pause)
         return;
 
+    timeSinceBegin += deltaTime;
+
+    randomPoper(deltaTime);
+
     AllyManager::getInstance()->Update(deltaTime);
     EnemyManager::getInstance()->Update(deltaTime);
+}
+
+void GameScene::randomPoper(float deltaTime)
+{
+    timer += deltaTime;
+
+    if (rand() % (int)((timeToPopMax - timer) * 10.0) == 0)
+    {
+        timer = 0.0;
+        EnemyManager::getInstance()->createUnit(rand() % MAX_TYPE_ENEMY, rand() % NUMBERLINE);
+    }
 }
 
 void GameScene::pauseGame()

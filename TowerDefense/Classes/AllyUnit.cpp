@@ -1,5 +1,6 @@
 #include "AllyUnit.h"
 #include "AllyManager.h"
+#include "WorldPosition.h"
 
 USING_NS_CC;
 
@@ -17,6 +18,10 @@ bool AllyUnit::Initialize(Layer* layer)
 {
     this->layer = layer;
     sprite = InitializeSprite();
+    sprite->setScale(0.1);
+    float x = position, y = line;
+    WorldPosition::worldToScreenPosition(x, y);
+    sprite->setPosition(x, y);
     layer->addChild(sprite);
     return InitializeData();
 }

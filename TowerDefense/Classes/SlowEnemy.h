@@ -11,7 +11,7 @@
 
 #include "EnemyUnit.h"
 
-#define SPRITE_SlowEnemy ""
+#define SPRITE_SlowEnemy "allies/1.png"
 
 class SlowEnemy : public EnemyUnit
 {

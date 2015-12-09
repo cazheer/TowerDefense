@@ -63,6 +63,9 @@
     <ClCompile Include="..\Classes\NormalEnemy.cpp">
       <Filter>src\EnemyUnit\Units</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SimpleAttackAlly.cpp">
+      <Filter>src\AllyUnit\Units</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -103,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\NormalEnemy.h">
       <Filter>src\EnemyUnit\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SimpleAttackAlly.h">
+      <Filter>src\AllyUnit\Units</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

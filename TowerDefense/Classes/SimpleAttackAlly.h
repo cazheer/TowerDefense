@@ -1,26 +1,26 @@
 //
-//  MarkProducerAlly.h
+//  SimpleAttackAlly.h
 //  TowerDefense
 //
 //  Created by admin on 12/2/15.
 //
 //
 
-#ifndef __TowerDefense__MarkProducerAlly__
-#define __TowerDefense__MarkProducerAlly__
+#ifndef __TowerDefense__SimpleAttackAlly__
+#define __TowerDefense__SimpleAttackAlly__
 
 #include "AllyUnit.h"
 
-#define SPRITE_MarkProducerAlly "allies/1.png"
+#define SPRITE_SimpleAttackAlly "allies/2.png"
 
-class MarkProducerAlly : public AllyUnit
+class SimpleAttackAlly : public AllyUnit
 {
     float productionSpeed;
     float currentTime;
 
 public:
-    MarkProducerAlly(int position, int line);
-    ~MarkProducerAlly();
+    SimpleAttackAlly(int position, int line);
+    ~SimpleAttackAlly();
 
     virtual bool InitializeData() override;
     virtual cocos2d::Sprite* InitializeSprite() override;
