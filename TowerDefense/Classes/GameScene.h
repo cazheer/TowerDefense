@@ -24,6 +24,7 @@
 # define    FILE_GAME_PAUSE_MENUBUTTON_NORMAL     ""
 # define    FILE_GAME_PAUSE_MENUBUTTON_SELECTED   ""
 
+#define TIME_TO_POP 4.2f
 #define		CASE_X 12
 #define		CASE_Y 6
 class GameScene : public cocos2d::Layer
@@ -54,7 +55,7 @@ public:
 
 private:
     // pop enemies
-    float timeToPopMax;
+    float timeToPopMax = TIME_TO_POP;
     float timer;
 
 public:
@@ -62,8 +63,6 @@ public:
 
 private:
 	cocos2d::Sprite *_dad[2];
-	std::vector<Units> _allies;
-	std::vector<Units> _enemies;
 	cocos2d::Sprite *_selected;
 	int _selected_id;
 };
