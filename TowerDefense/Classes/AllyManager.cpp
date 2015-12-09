@@ -1,4 +1,5 @@
 #include "AllyManager.h"
+#include "MarkProducerAlly.h"
 
 AllyManager* AllyManager::instance = nullptr;
 
@@ -21,6 +22,13 @@ AllyManager* AllyManager::getInstance()
 bool AllyManager::Initialize(cocos2d::Layer* layer)
 {
     this->layer = layer;
+
+    // init func creator
+    creatorFuncs.push_back([](int position, int line)
+    {
+        return (AllyUnit*)new MarkProducerAlly(position, line);
+    });
+
     return true;
 }
 

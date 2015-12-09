@@ -27,6 +27,8 @@
 #define NUMBERCASE 10
 #define NUMBERLINE 5
 
+#define MAX_TYPE_ALLY 1
+
 class AllyManager
 {
     AllyManager();
@@ -40,7 +42,6 @@ class AllyManager
 public:
     std::map<std::pair<int, int>, AllyUnit*> units;
 
-public:
     static AllyManager* getInstance();
 
     void createUnit(int type, int positionX, int positionY);

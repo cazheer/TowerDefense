@@ -228,3 +228,4 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+TowerDefense/proj.win32/Debug.win32/

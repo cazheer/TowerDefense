@@ -11,23 +11,15 @@
 
 #include "EnemyUnit.h"
 
-#define SLOWENEMY_SPRITE ""
+#define SPRITE_SlowEnemy ""
 
 class SlowEnemy : public EnemyUnit
 {
-    float timeSinceLastAttack;
-    float attackSpeed;
-    int power;
-
 public:
     SlowEnemy(int line);
     virtual ~SlowEnemy();
 
-    virtual bool Initialize(cocos2d::Layer* layer) override;
-    virtual void Update(float deltaTime) override;
-    virtual void Destroy() override;
-
-    void attack(float deltaTime);
+    virtual cocos2d::Sprite* InitializeSprite() override;
 };
 
 #endif

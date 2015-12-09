@@ -1,9 +1,12 @@
 #include "EnemyManager.h"
 #include "AllyManager.h"
+#include "SlowEnemy.h"
+#include "NormalEnemy.h"
 
 EnemyManager* EnemyManager::instance = nullptr;
 
-EnemyManager::EnemyManager()
+EnemyManager::EnemyManager() :
+layer(nullptr)
 {
 }
 
@@ -23,6 +26,14 @@ bool EnemyManager::Initialize(cocos2d::Layer* layer)
     this->layer = layer;
 
     // init funcs
+    creatorFuncs.push_back([](int line)
+    {
+        return (EnemyUnit*)new SlowEnemy(line);
+    });
+    creatorFuncs.push_back([](int line)
+    {
+        return (EnemyUnit*)new NormalEnemy(line);
+    });
 
     return true;
 }
@@ -68,7 +79,7 @@ void EnemyManager::lineDamage(int damage, int position, int line)
 {
     for (auto it = units.begin(); it != units.end(); ++it)
     {
-        if ((*it)->line == line && (*it)->position <= (float)position)
+        if ((*it)->line == line && (*it)->position >= (float)position)
         {
             attackUnit(damage, *it);
         }
@@ -79,7 +90,7 @@ void EnemyManager::splashDamage(int damage, int position, int line)
 {
     for (auto it = units.begin(); it != units.end(); ++it)
     {
-        if ((*it)->line == line && (*it)->position >= (float)position && (*it)->position <= (float)position + 1.0f)
+        if ((*it)->line == line && (*it)->position >= (float)position - 1.0 && (*it)->position <= (float)position + 1.0)
         {
             attackUnit(damage, *it);
         }

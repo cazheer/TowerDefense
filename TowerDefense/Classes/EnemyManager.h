@@ -17,6 +17,8 @@
 #include "EnemyUnit.h"
 #include "cocos2d.h"
 
+#define MAX_TYPE_ENEMY 2
+
 class EnemyManager
 {
     EnemyManager();
