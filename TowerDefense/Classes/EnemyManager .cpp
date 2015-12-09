@@ -1,6 +1,7 @@
 #include "EnemyManager.h"
 #include "AllyManager.h"
 #include "SlowEnemy.h"
+#include "NormalEnemy.h"
 
 EnemyManager* EnemyManager::instance = nullptr;
 
@@ -28,6 +29,10 @@ bool EnemyManager::Initialize(cocos2d::Layer* layer)
     creatorFuncs.push_back([](int line)
     {
         return (EnemyUnit*)new SlowEnemy(line);
+    });
+    creatorFuncs.push_back([](int line)
+    {
+        return (EnemyUnit*)new NormalEnemy(line);
     });
 
     return true;
