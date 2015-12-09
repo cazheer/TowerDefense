@@ -24,6 +24,9 @@ bool MarkProducerAlly::InitializeData()
 
 void MarkProducerAlly::Update(float deltaTime)
 {
+    if (!activate)
+        return;
+
     currentTime += deltaTime;
     while (currentTime >= productionSpeed)
     {

@@ -74,7 +74,7 @@ void EnemyManager::lineDamage(int damage, int position, int line)
 {
     for (auto it = units.begin(); it != units.end(); ++it)
     {
-        if ((*it)->line == line && (*it)->position <= (float)position)
+        if ((*it)->line == line && (*it)->position >= (float)position)
         {
             attackUnit(damage, *it);
         }
@@ -85,7 +85,7 @@ void EnemyManager::splashDamage(int damage, int position, int line)
 {
     for (auto it = units.begin(); it != units.end(); ++it)
     {
-        if ((*it)->line == line && (*it)->position >= (float)position && (*it)->position <= (float)position + 1.0f)
+        if ((*it)->line == line && (*it)->position >= (float)position - 1.0 && (*it)->position <= (float)position + 1.0)
         {
             attackUnit(damage, *it);
         }
