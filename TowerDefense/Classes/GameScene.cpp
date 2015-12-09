@@ -188,7 +188,7 @@ void GameScene::randomPoper(float deltaTime)
 {
     timer += deltaTime;
 	int var = (timeToPopMax - timer) * 10.0;
-    if (var > 0 && rand() % var == 0)
+    if (var <= 0 || rand() % var == 0)
     {
         timer = 0.0;
         EnemyManager::getInstance()->createUnit(rand() % MAX_TYPE_ENEMY, rand() % NUMBERLINE);
