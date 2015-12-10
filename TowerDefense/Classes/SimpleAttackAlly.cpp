@@ -1,5 +1,4 @@
 #include "SimpleAttackAlly.h"
-
 USING_NS_CC;
 
 SimpleAttackAlly::SimpleAttackAlly(int position, int line) :
@@ -24,6 +23,8 @@ bool SimpleAttackAlly::InitializeData()
 
 void SimpleAttackAlly::Update(float deltaTime)
 {
+
+	//ShotManager::getInstance()->createUnit(0, cocos2d::Vec2(position, line));
     if (!activate)
         return;
 
@@ -32,7 +33,7 @@ void SimpleAttackAlly::Update(float deltaTime)
     {
         // Produce
 
-
+		
         currentTime -= productionSpeed;
     }
 }
