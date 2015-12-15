@@ -27,6 +27,10 @@
 #define		TIME_TO_POP 4.2f
 #define		CASE_X 12
 #define		CASE_Y 6
+#define		POINT_WIN_KILL 10
+#define		POINT_WIN_TIME 5
+#define		POINT_LOSE_PASS 25
+
 class GameScene : public cocos2d::Layer
 {
 	public:
@@ -34,7 +38,11 @@ class GameScene : public cocos2d::Layer
     virtual void update(float deltaTime) override;
     static cocos2d::Scene* createScene();
 private:
-
+	struct AddMark {
+		cocos2d::Label *label;
+		float transparancy;
+		int sens;
+	};
 	struct Ally {
 		cocos2d::Sprite *sprite;
 		float _attack_speed;
@@ -72,6 +80,12 @@ private:
 	void updateAlly(float deltaTime);
 	void updateShot(float deltaTime);
 	void updateEnemies(float deltaTime);
+
+
+	void updateMark(float deltaTime);
+	void addMark(int i, cocos2d::Vec2 pos);
+
+	bool isEmptyPlace(cocos2d::Vec2);
 private:
     double timeSinceBegin;
     bool pause;
@@ -88,6 +102,12 @@ private:
 	std::vector<Ally*>		_allies;
 	std::vector<Enemy*>		_enemies;
 	std::vector<Shot*>		_shots;
+	cocos2d::Label *_mark_string;
+	int _price[2] = { 10, 10 };
+	int _mark = 20;
+	float _mark_timer = 0;
+
+	std::vector<AddMark>_add_mark;
 };
 
 #endif /* defined(__TowerDefense__GameScene__) */

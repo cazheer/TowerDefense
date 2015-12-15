@@ -90,7 +90,7 @@ bool GameScene::init()
 		origin.y + visibleSize.height / 2));
 	this->addChild(background);
 
-	//add images
+	//add images et string drag and drop
 	for (int i = 0; i < 2; i++)
 	{
 		std::string str = "allies/" + std::to_string(i + 1) + ".png";
@@ -98,7 +98,17 @@ bool GameScene::init()
 		_dad[i]->setScale(0.09f, 0.09f);
 		_dad[i]->setPosition(posWordToScreen(Vec2(1 + i, 5)));
 		this->addChild(_dad[i]);
+		auto legend = Label::createWithTTF(std::to_string(_price[i]), "fonts/Marker Felt.ttf", 12);
+		legend->setColor(cocos2d::Color3B(0, 0, 0));
+		legend->setPosition(posWordToScreen(Vec2(1 + i, 5)) + Vec2(30, -50));
+		this->addChild(legend);
 	}
+
+	_mark_string = Label::createWithTTF("Mark: 10 %", "fonts/Marker Felt.ttf", 24);
+	_mark_string->setPosition(posWordToScreen(Vec2(8, 5)));
+
+	_mark_string->setColor(cocos2d::Color3B(0, 0, 0));
+	this->addChild(_mark_string);
 
     timeSinceBegin = 0.0f;
     timer = 0.0f;
@@ -157,31 +167,43 @@ bool GameScene::init()
     return true;
 }
 
+bool GameScene::isEmptyPlace(cocos2d::Vec2 pos)
+{
+	for (size_t i = 0; i < _allies.size(); i++)
+		if (posScreenToWord(_allies[i]->sprite->getPosition()) == pos)
+			return false;
+	return true;
+}
+
 void GameScene::createAlly(int id, cocos2d::Vec2 pos)
 {
-	Ally *ally = new Ally();
-	std::string str = "allies/" + std::to_string(id + 1) + ".png";
-	ally->sprite = Sprite::create(str);
-	ally->sprite->setScale(0.09f, 0.09f);
-	ally->sprite->setPosition(posWordToScreen(pos));
-	this->addChild(ally->sprite);
-	ally->_count = 0.f;
-	switch (id)
+	if (_mark - _price[id] > 0 && isEmptyPlace(posWordToScreen(pos)))
 	{
-	case 0:
-		ally->_hp = 100;
-		ally->_id_shot = 0;
-		ally->_attack_speed = 1.f;
-		break;
-	case 1:
-		ally->_hp = 50;
-		ally->_id_shot = 1;
-		ally->_attack_speed = 2.f;
-		break;
-	default:
-		break;
+		Ally *ally = new Ally();
+		std::string str = "allies/" + std::to_string(id + 1) + ".png";
+		ally->sprite = Sprite::create(str);
+		ally->sprite->setScale(0.09f, 0.09f);
+		ally->sprite->setPosition(posWordToScreen(pos));
+		this->addChild(ally->sprite);
+		ally->_count = 0.f;
+		switch (id)
+		{
+		case 0:
+			ally->_hp = 100;
+			ally->_id_shot = 0;
+			ally->_attack_speed = 1.f;
+			break;
+		case 1:
+			ally->_hp = 50;
+			ally->_id_shot = 1;
+			ally->_attack_speed = 2.f;
+			break;
+		default:
+			break;
+		}
+		addMark(-_price[id], pos);
+		_allies.push_back(ally);
 	}
-	_allies.push_back(ally);
 }
 
 void GameScene::createShot(int id, cocos2d::Vec2 pos)
@@ -298,13 +320,15 @@ void GameScene::updateEnemies(float deltaTime)
 	{
 		if (_enemies[i]->_hp <= 0)
 		{
+			addMark(POINT_WIN_KILL, posScreenToWord(_enemies[i]->sprite->getPosition()));
 			this->removeChild(_enemies[i]->sprite);
 			_enemies.erase(_enemies.begin() + i);
 			continue;
 		}
 		else if (posScreenToWord(_enemies[i]->sprite->getPosition()).x < 1)
 		{
-			log("un énemi est passé");
+			//log("un énemi est passé");
+			addMark(POINT_LOSE_PASS, posScreenToWord(_enemies[i]->sprite->getPosition()));
 			this->removeChild(_enemies[i]->sprite);
 			_enemies.erase(_enemies.begin() + i);
 			continue;
@@ -330,10 +354,59 @@ void GameScene::updateEnemies(float deltaTime)
 	}
 }
 
+void GameScene::addMark(int i, cocos2d::Vec2 pos)
+{
+	_mark += i;
+	if (_mark > 100)
+		_mark = 100;
+	else if (_mark <= 0)
+	{
+		//lose
+	}
+	else
+	{
+		AddMark mark;
+		mark.label = Label::createWithTTF((i > 0 ? "+" : "") + std::to_string(i), "fonts/Marker Felt.ttf", 24);
+		mark.label->setColor(cocos2d::Color3B(0, 0, 0));
+		mark.label->setPosition(posWordToScreen(pos));
+		mark.transparancy = 255;
+		mark.sens = (i > 0) ? 1 : -1;
+		_add_mark.push_back(mark);
+		this->addChild(mark.label);
+	}
+}
+
+void GameScene::updateMark(float deltaTime)
+{
+	_mark_timer += deltaTime;
+	if (_mark_timer > 2.f)
+	{
+		_mark_timer = 0;
+		addMark(POINT_WIN_TIME, Vec2(8, 4));
+	}
+	std::string str = "Mark: " + std::to_string(_mark) + " %";
+	_mark_string->setString(str);
+	for (size_t i = 0; i < _add_mark.size(); i++)
+	{
+		_add_mark[i].transparancy -= deltaTime * 50;
+		if (_add_mark[i].transparancy <= 0)
+		{
+			this->removeChild(_add_mark[i].label);
+			_add_mark.erase(_add_mark.begin() + i);
+		}
+		else
+		{
+			_add_mark[i].label->setTextColor(cocos2d::Color4B(0, 0, 0, _add_mark[i].transparancy));
+			_add_mark[i].label->setPositionY(_add_mark[i].label->getPositionY() + _add_mark[i].sens);
+		}
+	}
+}
+
 void GameScene::update(float deltaTime)
 {
     if (pause)
         return;
+	updateMark(deltaTime);
 	updateAlly(deltaTime);
 	updateShot(deltaTime);
 	updateEnemies(deltaTime);
