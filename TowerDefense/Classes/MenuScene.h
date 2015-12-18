@@ -17,11 +17,11 @@
 /////////////////////
 // MY CLASS DEFINE //
 /////////////////////
+# define    BACKGROUND_MENU_MUSIC "music/menu.mp3"
+
 # define    FILE_MENU_BACKGROUND            "KeimyungBackground.jpg"
 # define    FILE_MENU_PLAYBUTTON_NORMAL     "PlayButton.png"
 # define    FILE_MENU_PLAYBUTTON_SELECTED   "PlayButton.png"
-# define    FILE_MENU_OPTIONBUTTON_NORMAL   "SettingsButton.png"
-# define    FILE_MENU_OPTIONBUTTON_SELECTED "SettingsButton.png"
 # define    FILE_MENU_EXITBUTTON_NORMAL     "ExitButton.png"
 # define    FILE_MENU_EXITBUTTON_SELECTED   "ExitButton.png"
 
@@ -33,7 +33,6 @@ public:
     virtual bool init() override;
 
     void startGame();
-    void optionGame();
     void exitGame();
     
     // implement the "static create()" method manually

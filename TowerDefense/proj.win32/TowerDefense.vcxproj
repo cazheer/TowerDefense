@@ -144,35 +144,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\AllyManager.cpp" />
-    <ClCompile Include="..\Classes\AllyUnit.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\EnemyManager .cpp" />
-    <ClCompile Include="..\Classes\EnemyUnit.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
-    <ClCompile Include="..\Classes\MarkProducerAlly.cpp" />
     <ClCompile Include="..\Classes\MenuScene.cpp" />
-    <ClCompile Include="..\Classes\NormalEnemy.cpp" />
-    <ClCompile Include="..\Classes\OptionScene.cpp" />
-    <ClCompile Include="..\Classes\SimpleAttackAlly.cpp" />
-    <ClCompile Include="..\Classes\SlowEnemy.cpp" />
-    <ClCompile Include="..\Classes\WorldPosition.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\AllyManager.h" />
-    <ClInclude Include="..\Classes\AllyUnit.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\EnemyManager.h" />
-    <ClInclude Include="..\Classes\EnemyUnit.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
-    <ClInclude Include="..\Classes\MarkProducerAlly.h" />
     <ClInclude Include="..\Classes\MenuScene.h" />
-    <ClInclude Include="..\Classes\NormalEnemy.h" />
-    <ClInclude Include="..\Classes\OptionScene.h" />
-    <ClInclude Include="..\Classes\SimpleAttackAlly.h" />
-    <ClInclude Include="..\Classes\SlowEnemy.h" />
-    <ClInclude Include="..\Classes\WorldPosition.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

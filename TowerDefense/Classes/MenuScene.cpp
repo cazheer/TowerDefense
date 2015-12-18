@@ -8,7 +8,7 @@
 
 #include "MenuScene.h"
 #include "GameScene.h"
-#include "OptionScene.h"
+#include <SimpleAudioEngine.h>
 
 USING_NS_CC;
 
@@ -36,6 +36,8 @@ bool MenuScene::init()
     {
         return false;
     }
+
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(BACKGROUND_MENU_MUSIC, true);
     
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
@@ -59,7 +61,7 @@ bool MenuScene::init()
         CC_CALLBACK_0(MenuScene::startGame, this));
     playItem->setScale(
         visibleSize.width / (playItem->getContentSize().width * 4),
-        visibleSize.height / (playItem->getContentSize().height * 10));
+        visibleSize.height / (playItem->getContentSize().height * 8));
 
     playItem->setPosition(
         Vec2(origin.x + visibleSize.width / 2,
@@ -71,30 +73,16 @@ bool MenuScene::init()
         FILE_MENU_EXITBUTTON_SELECTED,
         CC_CALLBACK_0(MenuScene::exitGame, this));
     exitItem->setScale(
-        visibleSize.width / (exitItem->getContentSize().width * 10),
-        visibleSize.height / (exitItem->getContentSize().height * 10));
+        visibleSize.width / (exitItem->getContentSize().width * 8),
+        visibleSize.height / (exitItem->getContentSize().height * 8));
 
-    exitItem->setPosition(
-        Vec2(origin.x + visibleSize.width * 0.9 + 16,
-        origin.y + visibleSize.height * 0.9 - 16));
-    
-    // Option Button
-    auto optionItem = MenuItemImage::create(
-        FILE_MENU_OPTIONBUTTON_NORMAL,
-        FILE_MENU_OPTIONBUTTON_SELECTED,
-        CC_CALLBACK_0(MenuScene::optionGame, this));
-    optionItem->setScale(
-        visibleSize.width / (optionItem->getContentSize().width * 10),
-        visibleSize.height / (optionItem->getContentSize().height * 10));
-
-    optionItem->setPosition(
-        Vec2(origin.x + visibleSize.width * 0.8 + 16,
-        origin.y + visibleSize.height * 0.9 - 16));
+    exitItem->setPosition(Vec2(
+        origin.x + visibleSize.width * 0.85f,
+        origin.y + visibleSize.height * 0.85f));
 
     // create menu, it's an autorelease object
     auto menu = Menu::create(
         playItem,
-        optionItem,
         exitItem,
         nullptr);
     menu->setPosition(Vec2::ZERO);
@@ -106,13 +94,7 @@ bool MenuScene::init()
 void MenuScene::startGame()
 {
     auto scene = GameScene::createScene();
-    Director::getInstance()->replaceScene(scene);
-}
-
-void MenuScene::optionGame()
-{
-    auto scene = OptionScene::createScene();
-    Director::getInstance()->replaceScene(scene);
+    Director::getInstance()->replaceScene(TransitionFadeTR::create(2, scene));
 }
 
 void MenuScene::exitGame()

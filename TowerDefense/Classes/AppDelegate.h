@@ -3,6 +3,9 @@
 
 #include "cocos2d.h"
 
+#define SCREEN_X    1024
+#define SCREEN_Y    728
+
 /**
 @brief    The cocos2d Application.
 
